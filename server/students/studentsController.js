@@ -4,9 +4,12 @@ const {
     studentsReport,
     } = require('./studentsModel')
     
-
+const {
+    getAllFaculty,
+} = require('../faculty/facultyModel')
 
 function getStudentProfileById(req, res){
+    console.log("inside studentProfileById")
     const profile = studentProfileById(req, res)
     
 }
@@ -21,7 +24,9 @@ function StudentReportById(req, res){
     const report = studentsReport(req, res)
 }
 
-
+function FacultyAvailable(req, res){
+    const facultyAvailable = getAllFaculty(req, res)
+}
 
 
 
@@ -29,5 +34,5 @@ module.exports = {
     getStudentProfileById, 
     addNewStudent,
     StudentReportById,
-   
+    FacultyAvailable,
 }

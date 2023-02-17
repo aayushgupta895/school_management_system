@@ -85,11 +85,6 @@ const faculty = new mongoose.Schema({
         type : String,
         required : true,
     },
-    faculty_id : {
-        type : String,
-        requied : true,
-        unique : true,
-    },
     department : {
         type : String,
         requied : true,

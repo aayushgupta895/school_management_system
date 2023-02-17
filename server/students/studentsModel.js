@@ -6,7 +6,6 @@ const {
 function studentProfileById(req, res, next){
     const id = req.params.studentId
     Student.findOne({_id : id})
-    .exec()
     .then(docs =>{
         console.log(docs);
         res.status(200).send(docs);

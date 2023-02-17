@@ -3,6 +3,7 @@ const {
     getStudentProfileById, 
     addNewStudent,
     StudentReportById,
+    FacultyAvailable,
 } = require('./studentsController')
 
 const router = express.Router()
@@ -22,6 +23,6 @@ router.post('/signup', checkLogin, addNewStudent)
 
 router.get('/myReport/:studentId', StudentReportById)
 
-
+router.get('/facul', FacultyAvailable)
 
 module.exports = router
