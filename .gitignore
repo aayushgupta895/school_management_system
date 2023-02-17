@@ -1,0 +1,4 @@
+server/node_modules
+server/.env
+server/model.js
+server/transaction.js
