@@ -3,9 +3,10 @@ const {
     getStudentProfileById, 
     addNewStudent,
     StudentReportById,
-    FacultyAvailable,
+    
 } = require('./studentsController')
 
+const {verifyStudent} = require('../Auth/StudentModel')
 const router = express.Router()
 
 function checkLogin(req, res, next){
@@ -17,12 +18,14 @@ router.get('/', checkLogin, (req, res) =>{
     res.redirect('/profile')
 })
 
-router.get('/:studentId', getStudentProfileById)
+router.get('/:studentId', verifyStudent, getStudentProfileById)
 
-router.post('/signup', checkLogin, addNewStudent)
+router.post('/signup',  verifyStudent, addNewStudent)
 
-router.get('/myReport/:studentId', StudentReportById)
+router.get('/myReport/:studentId', verifyStudent, StudentReportById)
 
-router.get('/facul', FacultyAvailable)
+// router.get('/faculties', FacultyAvailable)
+
+
 
 module.exports = router

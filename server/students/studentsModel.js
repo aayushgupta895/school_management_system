@@ -1,11 +1,12 @@
+const { ObjectId } = require('mongodb');
 const {
     Student,
 } = require('../MongoSchema')
 
 
 function studentProfileById(req, res, next){
-    const id = req.params.studentId
-    Student.findOne({_id : id})
+    id = req.params.id
+    Student.findOne({_id : new ObjectId(id)})
     .then(docs =>{
         console.log(docs);
         res.status(200).send(docs);

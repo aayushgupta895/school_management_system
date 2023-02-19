@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const morgan = require('morgan');
 const {connectMongo, disconnectMongo} = require('./mongo')
+const authRoute = require('./Auth/studentAuthRoute')
 const student_route = require('./students/studentRouter')
 const faculty_route = require('./faculty/facultyRouter')
 const bodyParser = require("body-parser")
@@ -42,5 +43,7 @@ function checkConnection(req, res, next){
 app.use('/auth/student', checkConnection, student_route)
 
 app.use('/auth/faculty', faculty_route)
+
+app.use('/auth', authRoute)
 
 startServer().catch((e)=>(console.log(e)));
