@@ -4,8 +4,8 @@ const router = express.Router()
 
 const {studentAuth, studentLogin} = require('./StudentModel')
 
-router.post('/studentAuth', studentAuth)
+router.post('/signup', studentAuth)
 
-router.post('/studentLogin', studentLogin)
+router.post('/login', studentLogin)
 
 module.exports = router

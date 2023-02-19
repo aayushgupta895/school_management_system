@@ -1,9 +1,11 @@
-const {StudentAuthSchema} = require('./authSchema')
+const {FacultyAuthSchema} = require('./facultyAuthSchema')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
-function studentAuth(req, res){
-    StudentAuthSchema.find({ email : req.body.email})
+
+
+function facultyAuth(req, res){
+    FacultyAuthSchema.find({ email : req.body.email})
     .then(docs =>{
         if(docs.length >= 1){
             res.send({
@@ -17,7 +19,7 @@ function studentAuth(req, res){
                     })
                 }else{
                     console.log(hash , " hashed password")
-                    StudentAuthSchema.create({
+                    FacultyAuthSchema.create({
                         email : req.body.email,
                         password : hash
                     })
@@ -41,8 +43,9 @@ function studentAuth(req, res){
     })
 }
 
-function studentLogin(req, res){
-    StudentAuthSchema.findOne({email : req.body.email})
+
+function facultyLogin(req, res){
+    FacultyAuthSchema.findOne({email : req.body.email})
     .then(doc =>{
         console.log(doc)
         if(doc){
@@ -57,7 +60,7 @@ function studentLogin(req, res){
                             email : doc.email,
                             id : doc._id
                         },
-                        process.env.SECRET_KEY,
+                        process.env.SECRET_KEY_FACULTY,
                         {
                             expiresIn : "1h"
                         })
@@ -85,11 +88,12 @@ function studentLogin(req, res){
     })
 }
 
-function verifyStudent(req, res, next){
+
+function verifyFaculty(req, res, next){
     try {
         const token = req.headers.authorization.split(" ")[1]
         console.log(token, "token") 
-        const decoded = jwt.verify(token, process.env.SECRET_KEY)  
+        const decoded = jwt.verify(token, process.env.SECRET_KEY_FACULTY)  
         console.log(decoded, "decoded")
         req.userData  = decoded
         next() 
@@ -101,8 +105,9 @@ function verifyStudent(req, res, next){
 
 }
 
+
 module.exports = {
-    studentAuth,
-    studentLogin,
-    verifyStudent,
+    facultyAuth,
+    facultyLogin,
+    verifyFaculty,
 }

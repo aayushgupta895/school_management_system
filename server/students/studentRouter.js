@@ -6,7 +6,7 @@ const {
     
 } = require('./studentsController')
 
-const {verifyStudent} = require('../Auth/StudentModel')
+const {verifyStudent} = require('../Auth/StudentAuth/StudentModel')
 const router = express.Router()
 
 function checkLogin(req, res, next){
@@ -20,7 +20,7 @@ router.get('/', checkLogin, (req, res) =>{
 
 router.get('/:studentId', verifyStudent, getStudentProfileById)
 
-router.post('/signup',  verifyStudent, addNewStudent)
+router.post('/register',  verifyStudent, addNewStudent)
 
 router.get('/myReport/:studentId', verifyStudent, StudentReportById)
 

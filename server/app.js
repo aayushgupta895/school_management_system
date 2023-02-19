@@ -1,11 +1,12 @@
-const express = require('express')
-const path = require('path')
-const morgan = require('morgan');
-const {connectMongo, disconnectMongo} = require('./mongo')
-const authRoute = require('./Auth/studentAuthRoute')
-const student_route = require('./students/studentRouter')
-const faculty_route = require('./faculty/facultyRouter')
 const bodyParser = require("body-parser")
+const express = require('express')
+const morgan = require('morgan');
+const {connectMongo} = require('./mongo')
+const studentAuthRoute = require('./Auth/StudentAuth/studentAuthRoute')
+const facultyAuthRoute = require('./Auth/FacultyAuth/facultyAuthRoute')
+const studentRoute = require('./students/studentRouter')
+const facultyRoute = require('./faculty/facultyRouter')
+
 // const {connectMongoClient} = require('./transaction')
 const PORT = 3500
 const app = express()
@@ -29,21 +30,16 @@ async function startServer(){
     app.listen(PORT, ()=>{ console.log(`listening on the port ${PORT}`)})
 }
 
-
-
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname,'index.html'))
 })
 
-function checkConnection(req, res, next){
-    console.log("inside checkconnection")
-    next()
-}
+app.use('/auth/student',  studentRoute)
 
-app.use('/auth/student', checkConnection, student_route)
+app.use('/auth/faculty', facultyRoute)
 
-app.use('/auth/faculty', faculty_route)
+app.use('/students/auth', studentAuthRoute)
 
-app.use('/auth', authRoute)
+app.use('/faculty/auth', facultyAuthRoute)
 
 startServer().catch((e)=>(console.log(e)));

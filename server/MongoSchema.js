@@ -39,27 +39,6 @@ const student = new mongoose.Schema({
         }
     }
 )
-//     firstName : {
-//     type : String,
-//     required : true,
-//     unique : true
-//     },
-//     faveFoods : [{type : String}],
-//     info : {
-//         school : {
-//             type : String,
-//         },
-//         class : {
-//             type : Number
-//         }
-//     },
-//     school : {
-//         type : mongoose.Schema.Types.ObjectId,
-//         required : true,
-//         ref : 'school',
-//     }
-// }, {timestamps : true})
-
 
 
 const department = new mongoose.Schema({
